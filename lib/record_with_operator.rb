@@ -13,6 +13,10 @@ module RecordWithOperator
     config[:operator_class_name]
   end
 
+  def self.operator_class_name=(name)
+    config[:operator_class_name] = name
+  end
+
   def self.creator_column
     config[:creator_column]
   end
