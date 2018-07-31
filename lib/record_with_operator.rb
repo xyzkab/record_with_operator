@@ -9,6 +9,14 @@ module RecordWithOperator
     @config
   end
 
+  def self.operator_association_options
+    config[:operator_association_options]
+  end
+
+  def self.operator_association_options=(options = {})
+    config[:operator_association_options] = options
+  end
+
   def self.operator_class_name
     config[:operator_class_name]
   end
