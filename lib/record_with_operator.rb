@@ -21,6 +21,10 @@ module RecordWithOperator
     config[:updater_column]
   end
 
+  def self.updater_column=(name)
+    config[:updater_column] = name
+  end
+
   def self.deleter_column
     config[:deleter_column]
   end
