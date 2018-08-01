@@ -35,10 +35,14 @@ module RecordWithOperator
         before_save :set_updater if records_updater?
         before_destroy :update_deleter if records_deleter?
 
-        if self.table_exists?
-          belongs_to :creator, {:foreign_key => "created_by", :class_name => RecordWithOperator.config[:operator_class_name]}.merge(RecordWithOperator.config[:operator_association_options]) if records_creator?
-          belongs_to :updater, {:foreign_key => "updated_by", :class_name => RecordWithOperator.config[:operator_class_name]}.merge(RecordWithOperator.config[:operator_association_options]) if records_updater?
-          belongs_to :deleter, {:foreign_key => "deleted_by", :class_name => RecordWithOperator.config[:operator_class_name]}.merge(RecordWithOperator.config[:operator_association_options]) if records_deleter?
+        begin # patch with docker-compose database up late
+          if self.table_exists?
+            belongs_to :creator, {:foreign_key => "created_by", :class_name => RecordWithOperator.config[:operator_class_name]}.merge(RecordWithOperator.config[:operator_association_options]) if records_creator?
+            belongs_to :updater, {:foreign_key => "updated_by", :class_name => RecordWithOperator.config[:operator_class_name]}.merge(RecordWithOperator.config[:operator_association_options]) if records_updater?
+            belongs_to :deleter, {:foreign_key => "deleted_by", :class_name => RecordWithOperator.config[:operator_class_name]}.merge(RecordWithOperator.config[:operator_association_options]) if records_deleter?
+          end
+        rescue => e
+          nil
         end
       end
 
